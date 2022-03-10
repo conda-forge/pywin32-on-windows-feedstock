@@ -1,7 +1,7 @@
 About pywin32-on-windows
 ========================
 
-Home: https://github.com/conda-forge/maybe-pywin32-feedstock
+Home: https://github.com/conda-forge/pywin32-on-windows-feedstock
 
 Package license: BSD-3-Clause
 

@@ -1,1 +1,5 @@
 conda_forge_output_validation: true
+# see conda_build_config.yaml#/pkg_type which controls the dependencies
+noarch_platforms:
+- linux_64
+- win_64
