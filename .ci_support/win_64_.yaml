@@ -1,6 +1,15 @@
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge pywin32_on_windows_experimental
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
 pkg_type:
 - pywin32
+py_impl:
+- cpython
+- pypy
+python:
+- 3.9.* *_cpython
