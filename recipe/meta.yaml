@@ -1,45 +1,82 @@
-{% set version = "0.1.0" %}
-{% set build_number = 1 %}
+{% set version = "0.2.0" %}
+{% set build_number = 0 %}
 
 package:
-  name: pywin32-on-windows
+  name: pywin32-on-windows-split
   version: {{ version }}
 
 build:
   noarch: python
-  {% if pkg_type == 'pywin32' %}
-  number: {{ build_number | int * 2 }}
-  {% else %}
-  number: {{ build_number | int * 2 + 1 }}
-  {% endif %}
+  number: {{ build_number }}
 
 requirements:
   host:
     - python >=2.7
   run:
     - python >=2.7
-    {% if pkg_type == 'pywin32' %}
-    - pywin32
-    {% else %}
-    - __unix
-    {% endif %}
 
-test:
-  {% if pkg_type == 'pywin32' %}
-  imports:
-    - win32api
-  {% endif %}
-  requires:
-    - pip
-  commands:
-    - pip check
+
+outputs:
+  - name: pywin32-on-windows
+    build:
+      noarch: python
+      number: {{ build_number }}
+    requirements:
+      host:
+        - python >=2.7
+      run:
+        - python >=2.7
+        - {% if pkg_type == 'pywin32' %}pywin32{% else %}__unix{% endif %}
+    test:
+      {% if pkg_type == 'pywin32' %}
+      imports:
+        - win32api
+      {% endif %}
+      requires:
+        - pip
+      commands:
+        - pip check
+
+  - name: pywin32-on-windows-cpython
+    build:
+      noarch: python
+      number: {{ build_number }}
+    requirements:
+      host:
+        - python >=2.7
+      run:
+        {% if pkg_type == 'pywin32' and python_impl == 'cpython' %}
+        - python >=2.7 *_cpython
+        - {{ pin_subpackage('pywin32-on-windows', max_pin='x.x.x') }}
+        {% elif pkg_type == 'pywin32' and python_impl == 'pypy' %}
+        - python >=2.7
+        - pypy
+        {% endif %}
+    test:
+      {% if pkg_type == 'pywin32' and python_impl == 'cpython' %}
+      imports:
+        - win32api
+      {% endif %}
+      requires:
+        - pip
+      commands:
+        - pip check
+    about:
+      summary: 'A virtual package for pywin32... but only on Windows with CPython'
+      description: |-
+        This package exists so other packages can depend on `pywin32`, often the only
+        platform specific dependency, while remaining `noarch: python`. On non-Windows,
+        non-CPython platforms, installing it is a no-op.
+
+        A specific version constraint for `pywin32` itself can be specified at build
+        time with `run_constrained`.
 
 about:
   home: https://github.com/conda-forge/pywin32-on-windows-feedstock
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
-  summary: 'A virtual package for pywin32... but only on windows'
+  summary: A virtual package for pywin32... but only on Windows
   description: |-
     This package exists so other packages can depend on `pywin32`, often the only
     platform specific dependency, while remaining `noarch: python`. On non-Windows
@@ -49,5 +86,6 @@ about:
     time with `run_constrained`.
 
 extra:
+  feedstock-name: pywin32-on-windows
   recipe-maintainers:
     - bollwyvl
