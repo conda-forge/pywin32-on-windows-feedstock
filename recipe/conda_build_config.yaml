@@ -3,7 +3,8 @@ pkg_type:
   - noop  # [not win]
   - pywin32  # [win]
 
-python_impl:
+py_impl:
+  - noop # [not win]
   - pypy  # [win]
   - cpython  # [win]
 

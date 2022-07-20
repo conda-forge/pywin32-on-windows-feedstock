@@ -45,15 +45,17 @@ outputs:
       host:
         - python >=2.7
       run:
-        {% if pkg_type == 'pywin32' and python_impl == 'cpython' %}
+        - python >=2.7
+        {% if pkg_type == 'noop' %}
+        - __unix
+        {% elif pkg_type == 'pywin32' and py_impl == 'cpython' %}
         - python >=2.7 *_cpython
         - {{ pin_subpackage('pywin32-on-windows', max_pin='x.x.x') }}
-        {% elif pkg_type == 'pywin32' and python_impl == 'pypy' %}
-        - python >=2.7
+        {% elif pkg_type == 'pywin32' and py_impl == 'pypy' %}
         - pypy
         {% endif %}
     test:
-      {% if pkg_type == 'pywin32' and python_impl == 'cpython' %}
+      {% if pkg_type == 'pywin32' and py_impl == 'cpython' %}
       imports:
         - win32api
       {% endif %}
