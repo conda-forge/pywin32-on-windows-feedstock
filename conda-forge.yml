@@ -9,4 +9,4 @@ github:
 conda_build:
   pkg_format: '2'
 azure:
-  upload_packages: False
+  upload_packages: True
