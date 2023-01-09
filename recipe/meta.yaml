@@ -38,12 +38,14 @@ requirements:
   {% if noarch_platform == "windows" %}
   run_constrained:
     {% if windows_py == "pypy" %}
+    - python !=*_cpython
     - python ==*_pypy
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} >=0
     {% endfor %}
     {% elif windows_py == "cpython" %}
     - python ==*_cpython
+    - python !=*_pypy
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} <0
     {% endfor %}
