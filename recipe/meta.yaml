@@ -23,6 +23,8 @@ package:
 build:
   noarch: python
   number: 0
+  ignore_run_exports:
+    - python
 
 requirements:
   host:
@@ -55,9 +57,13 @@ test:
     - python ==3.8.*
   commands:
     - pip check
-  {% if noarch_platform == "win" and windows_py == "cpython" %}
+  {% if noarch_platform == "win" %}
   imports:
+    {% if windows_py == "cpython" %}
     - win32api
+    {% elif windows_py == "pypy" %}
+    - __pypy__
+    {% endif %}
   {% endif %}
 
 about:
