@@ -53,7 +53,7 @@ test:
     - pip
   commands:
     - pip check
-  {% if noarch_platform == "win" and pywin32_py == "cpython" %}
+  {% if noarch_platform == "win" and windows_py == "cpython" %}
   imports:
     - win32api
   {% endif %}
