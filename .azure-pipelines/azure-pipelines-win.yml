@@ -8,8 +8,8 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_pywin32_pythonnot-pypy:
-        CONFIG: win_64_pywin32_pythonnot-pypy
+      win_64_pywin32_pythoncpython:
+        CONFIG: win_64_pywin32_pythoncpython
         UPLOAD_PACKAGES: 'False'
       win_64_pywin32_pythonpypy:
         CONFIG: win_64_pywin32_pythonpypy
