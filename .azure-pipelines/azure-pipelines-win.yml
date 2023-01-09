@@ -8,11 +8,11 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_pywin32_pythoncpython:
-        CONFIG: win_64_pywin32_pythoncpython
+      win_64_windows_pycpython:
+        CONFIG: win_64_windows_pycpython
         UPLOAD_PACKAGES: 'False'
-      win_64_pywin32_pythonpypy:
-        CONFIG: win_64_pywin32_pythonpypy
+      win_64_windows_pypypy:
+        CONFIG: win_64_windows_pypypy
         UPLOAD_PACKAGES: 'False'
   timeoutInMinutes: 360
   variables:
