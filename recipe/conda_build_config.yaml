@@ -4,6 +4,6 @@ noarch_platform:
   - 'win'  # [win]
 pywin32_python:
   - 'pypy'  # [win]
-  - 'not-pypy'  # [win]
+  - 'cpython'  # [win]
 channel_targets:
   - conda-forge pywin32_on_windows_experimental
