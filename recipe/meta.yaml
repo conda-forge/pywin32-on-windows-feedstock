@@ -1,5 +1,20 @@
-{% set version = "0.1.0" %}
-{% set build_number = 1 %}
+{% set version = "0.2.0" %}
+
+# all the known historic versions, plus some padding for a couple years
+{% set pypy_versions = [
+  "2.7",
+  "3.5",
+  "3.6",
+  "3.7",
+  "3.8",
+  "3.9",
+  "3.10",
+  "3.11",
+  "3.12",
+  "3.13",
+  "3.14",
+  "3.15",
+] %}
 
 package:
   name: pywin32-on-windows
@@ -7,47 +22,57 @@ package:
 
 build:
   noarch: python
-  {% if pkg_type == 'pywin32' %}
-  number: {{ build_number | int * 2 }}
-  {% else %}
-  number: {{ build_number | int * 2 + 1 }}
-  {% endif %}
+  number: 0
 
 requirements:
   host:
     - python >=2.7
   run:
     - python >=2.7
-    {% if pkg_type == 'pywin32' %}
+    - __{{ noarch_platform }}
+    {% if pywin32_python == 'cpython' %}
     - pywin32
-    {% else %}
-    - __unix
     {% endif %}
+  {% if noarch_platform == "windows" %}
+  run_constrained:
+    {% if pywin32_python == "pypy" %}
+    - python ==*_pypy
+    {% for pypy in pypy_versions %}
+    - pypy{{ pypy }} >=0
+    {% endfor %}
+    {% if pywin32_python == "cpython" %}
+    - python ==*_cpython
+    {% for pypy in pypy_versions %}
+    - pypy{{ pypy }} <0
+    {% endfor %}
+    {% endif %}
+  {% endif %}
 
 test:
-  {% if pkg_type == 'pywin32' %}
-  imports:
-    - win32api
-  {% endif %}
   requires:
     - pip
   commands:
     - pip check
+  {% if noarch_platform == "win" and pywin32_py == "cpython" %}
+  imports:
+    - win32api
+  {% endif %}
 
 about:
   home: https://github.com/conda-forge/pywin32-on-windows-feedstock
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
-  summary: 'A virtual package for pywin32... but only on windows'
+  summary: 'A virtual package for pywin32... but only on Windows/CPython'
   description: |-
     This package exists so other packages can depend on `pywin32`, often the only
-    platform specific dependency, while remaining `noarch: python`. On non-Windows
-    platforms, installing it is a no-op.
+    platform-specific dependency, while remaining `noarch: python`. On
+    non-Windows/CPython platforms, installing it is a no-op.
 
     A specific version constraint for `pywin32` itself can be specified at build
     time with `run_constrained`.
 
 extra:
+  feedstock-name: pywin32-on-windows
   recipe-maintainers:
     - bollwyvl

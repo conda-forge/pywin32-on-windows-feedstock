@@ -1,4 +1,7 @@
 # see conda-forge.yaml#/noarch_platforms which controls the platforms
-pkg_type:
-  - 'noop'  # [not win]
-  - 'pywin32'  # [win]
+noarch_platform:
+  - 'unix'  # [linux]
+  - 'win'  # [win]
+pywin32_python:
+  - 'pypy'  # [win]
+  - 'not-pypy'  # [win]
