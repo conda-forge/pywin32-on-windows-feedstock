@@ -10,10 +10,10 @@ jobs:
     matrix:
       win_64_windows_pycpython:
         CONFIG: win_64_windows_pycpython
-        UPLOAD_PACKAGES: 'False'
+        UPLOAD_PACKAGES: 'True'
       win_64_windows_pypypy:
         CONFIG: win_64_windows_pypypy
-        UPLOAD_PACKAGES: 'False'
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
