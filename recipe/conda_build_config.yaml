@@ -2,7 +2,7 @@
 noarch_platform:
   - 'unix'  # [linux]
   - 'win'  # [win]
-pywin32_python:
+windows_py:
   - 'pypy'  # [win]
   - 'cpython'  # [win]
   - 'not-on-windows'  # [unix]

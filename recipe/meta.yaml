@@ -30,17 +30,17 @@ requirements:
   run:
     - python >=2.7
     - __{{ noarch_platform }}
-    {% if pywin32_python == 'cpython' %}
+    {% if windows_py == 'cpython' %}
     - pywin32
     {% endif %}
   {% if noarch_platform == "windows" %}
   run_constrained:
-    {% if pywin32_python == "pypy" %}
+    {% if windows_py == "pypy" %}
     - python ==*_pypy
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} >=0
     {% endfor %}
-    {% elif pywin32_python == "cpython" %}
+    {% elif windows_py == "cpython" %}
     - python ==*_cpython
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} <0
