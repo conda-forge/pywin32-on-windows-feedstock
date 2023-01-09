@@ -1,4 +1,10 @@
 # see conda-forge.yaml#/noarch_platforms which controls the platforms
-pkg_type:
-  - 'noop'  # [not win]
-  - 'pywin32'  # [win]
+noarch_platform:
+  - 'unix'  # [linux]
+  - 'win'  # [win]
+windows_py:
+  - 'pypy'  # [win]
+  - 'cpython'  # [win]
+  - 'not-on-windows'  # [unix]
+channel_targets:
+  - conda-forge pywin32_on_windows_experimental
