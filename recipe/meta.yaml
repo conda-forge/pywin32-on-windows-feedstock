@@ -51,6 +51,8 @@ requirements:
 test:
   requires:
     - pip
+    # to ensure the python doesn't "stick" from the build
+    - python ==3.8.*
   commands:
     - pip check
   {% if noarch_platform == "win" and windows_py == "cpython" %}
