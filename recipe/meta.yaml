@@ -40,7 +40,7 @@ requirements:
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} >=0
     {% endfor %}
-    {% if pywin32_python == "cpython" %}
+    {% elif pywin32_python == "cpython" %}
     - python ==*_cpython
     {% for pypy in pypy_versions %}
     - pypy{{ pypy }} <0
