@@ -8,9 +8,12 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
+      win_64_pywin32_pythonnot-pypy:
+        CONFIG: win_64_pywin32_pythonnot-pypy
+        UPLOAD_PACKAGES: 'False'
       win_64_pywin32_pythonpypy:
         CONFIG: win_64_pywin32_pythonpypy
-        UPLOAD_PACKAGES: 'True'
+        UPLOAD_PACKAGES: 'False'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
